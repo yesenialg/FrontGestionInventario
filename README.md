@@ -1,6 +1,6 @@
-#FrontGestionInventario
+# FrontGestionInventario
 
-##Cómo iniciar el proyecto
+## Cómo iniciar el proyecto
 
 1. Asegurarse de tener instalado node para hacer uso de npm. Si no se tiene se puede instalar en este enlace: [Descargar node.js](https://nodejs.org/en/download)
 
