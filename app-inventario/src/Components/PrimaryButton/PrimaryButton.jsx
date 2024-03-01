@@ -6,7 +6,7 @@ const PrimaryButton = (props) => {
   const Icon = props.icon;
 
   return (
-    <button className="estiloBoton" onClick={props.onClick}>
+    <button className="estiloBoton" onClick={props.onClick} disabled={props.disabled}>
       {Icon && <Icon className="estiloIcon"/>}
       <br/>
       <span>{props.text}</span>

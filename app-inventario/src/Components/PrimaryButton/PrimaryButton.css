@@ -9,6 +9,10 @@
     cursor: pointer;
   }
 
+  .estiloBoton:disabled {
+    opacity: 0.5;
+}
+
   .estiloIcon {
     font-size: 50px;
   }

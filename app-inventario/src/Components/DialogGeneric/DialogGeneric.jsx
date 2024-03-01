@@ -8,8 +8,7 @@ import TextField from '@mui/material/TextField';
 import PrimaryButton from '../PrimaryButton/PrimaryButton';
 import AddTaskIcon from '@mui/icons-material/AddTask';
 import { putProduct, postProduct } from '../../Services/Axios';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
+import SnackbarMessage from '../Snackbar/SnackbarMessage';
 
 const DialogGeneric = (props) => {
   const { open, onClose, title, productToEdit, setProductToEdit, reloadList } = props;
@@ -20,16 +19,17 @@ const DialogGeneric = (props) => {
   const [price, setPrice] = useState('');
   const [stock, setStock] = useState('');
 
-  const [nameError, setNameError] = useState('');
-  const [descriptionError, setDescriptionError] = useState('');
-  const [priceError, setPriceError] = useState('');
-  const [stockError, setStockError] = useState('');
+  const [nameError, setNameError] = useState('El nombre no puede estar vacío');
+  const [descriptionError, setDescriptionError] = useState('La descripción no puede estar vacía');
+  const [priceError, setPriceError] = useState('El precio no puede estar vacío');
+  const [stockError, setStockError] = useState('La cantidad en stock no puede estar vacía');
+
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState('success'); 
 
-  const handleSnackbarClose = (event, reason) => {
+  const handleSnackbarClose = (reason) => {
     if (reason === 'clickaway') {
       return;
     }
@@ -49,27 +49,30 @@ const DialogGeneric = (props) => {
   }
 
   useEffect(() => {
-    console.log(productToEdit)
     if (productToEdit) {
       setId(productToEdit.id || '');
       setName(productToEdit.name);
       setDescription(productToEdit.description);
       setPrice(productToEdit.price);
       setStock(productToEdit.stock);
+      setNameError('');
+      setDescriptionError('');
+      setPriceError('');
+      setStockError('');
     }
   }, [productToEdit]);
 
   const handleOnClose = () => {
-    setNameError('');
-    setDescriptionError('');
-    setPriceError('');
-    setStockError('');
+    setProductToEdit(null);
+    setNameError('El nombre no puede estar vacío');
+    setDescriptionError('La descripción no puede estar vacía');
+    setPriceError('El precio no puede estar vacío');
+    setStockError('La cantidad en stock no puede estar vacía');
     setId('');
     setName('');
     setDescription('');
     setPrice('');
     setStock('');
-    setProductToEdit(null);
     onClose();
   };
 
@@ -163,11 +166,11 @@ const DialogGeneric = (props) => {
 
   return (
     <div>
-      <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleSnackbarClose}>
-        <MuiAlert elevation={6} variant="filled" onClose={handleSnackbarClose} severity={snackbarSeverity}>
-          {snackbarMessage}
-        </MuiAlert>
-      </Snackbar>
+      <SnackbarMessage
+        openSnackbar={openSnackbar}
+        handleSnackbarClose={handleSnackbarClose} 
+        snackbarMessage={snackbarMessage}
+        snackbarSeverity={snackbarSeverity}/>
       <Dialog open={open} maxWidth="sm" fullWidth onClose={handleOnClose}>
         <DialogTitle className='estiloDialogTitle'>{title}</DialogTitle>
         <DialogContent className="estiloDialogContent">
@@ -219,7 +222,14 @@ const DialogGeneric = (props) => {
               />
             </Grid>
           </Grid>
-          <PrimaryButton onClick={saveProduct} icon={AddTaskIcon} text="Guardar"/>
+          <PrimaryButton 
+            onClick={saveProduct} 
+            icon={AddTaskIcon} 
+            text="Guardar"
+            disabled={priceError !== ''
+                || stockError !== ''
+                || descriptionError !== ''
+                || nameError !== ''}/>
         </DialogContent>
       </Dialog>
     </div>

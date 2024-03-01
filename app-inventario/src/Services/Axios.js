@@ -7,10 +7,10 @@ export function getAllProducts(){
     const url = `${urlBase}GetAll`;
     return axios.get(url)
     .then(function (response) {
-        return response.data
+        return { data: response.data }
     })
     .catch(function (error) {
-        console.log("Error al obtener los productos", error);
+        return { error: error, data: [] };
     })
 }
 
