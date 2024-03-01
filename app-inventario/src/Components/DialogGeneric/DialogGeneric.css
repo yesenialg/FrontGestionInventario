@@ -1,0 +1,36 @@
+input {
+    padding: 10px;
+    border: 1px solid #34ae4f;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .estiloInput {
+    width: 300px;
+    background-color: #f8f8f8;
+    color: #333;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .estiloDialogContentText {
+    margin-top: 20px;
+  }
+  
+  input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 4px #1F7BDE;
+  }
+
+  .estiloDialogContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .estiloDialogTitle {
+    color: #f8f8f8;
+    background-color: #2c8a40;
+  }
